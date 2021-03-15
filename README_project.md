@@ -18,8 +18,14 @@ El diseño de esta aplicación está pensado a partir del diseño de las interfa
 
 ![Nuevo diseño de tienda](https://cdn1.dotesports.com/wp-content/uploads/2020/06/12103947/All-items-1024x688.jpg)
 
-### Prototipo de baja Fidelidad
+### Prototipo de baja Fidelidad<br>Móvil
 
 ![Cuadricula](https://raw.githubusercontent.com/dsandovalm/BOG002-data-lovers/main/images/figma/low_phone_cuad.png)
 ![Info reducida](https://raw.githubusercontent.com/dsandovalm/BOG002-data-lovers/main/images/figma/low_phone_cards.png)
+<img src="./images/figma/low_phone_details.png"><br>
+
+### Desktop
+<img src="./images/figma/Desktop-1.png">
+<img src="./images/figma/Desktop-2.png">
+<img src="./images/figma/Desktop-3.png">
 

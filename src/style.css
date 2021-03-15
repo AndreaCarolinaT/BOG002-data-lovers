@@ -28,7 +28,8 @@ ul {
 
 .small-pic{
     width: calc(100%/6);
-    height: auto;   
+    height: auto; 
+    cursor: pointer  
 }
 
 /* - - - CARDS - - - */

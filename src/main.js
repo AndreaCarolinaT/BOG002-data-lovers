@@ -95,14 +95,11 @@ filt(filterCharacter)
 /* Función que permite ordenar alfabéticamente de forma ascendente y descendente */
 function orderData(e) {
   let option = e.target.value;
-  if (option == "AZ") {
+  if (option == "AZ" || "all") {
     showCharacters(sortDataAZ(dataCharacter))
   }
   if (option == "ZA") {
     showCharacters(sortDataZA(dataCharacter))
-  }
-  if (option == "all") {
-    showCharacters(sortDataAZ(dataCharacter))
   }
 }
 

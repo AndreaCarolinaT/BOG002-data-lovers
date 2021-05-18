@@ -1,32 +1,18 @@
-export const example = () => {
-  return 'example';
-};
+export function filterCharacter(specie, dataCharacter) {
+  let filterSpecie = dataCharacter.filter((item) => item.species === specie);
+  return filterSpecie
+}
 
-export const anotherExample = () => {
-  return 'OMG';
-};
+export function sortDataAZ(characters) {
+  let orderAZ = characters.sort((character1, character2) => {
+      return (character1.name < character2.name) ? -1 : 1
+  })
+  return orderAZ 
+}
 
-export const filterData = (data,condition) => {
-  //Data es un objeto. Los campeones son los atributos de este objeto
-  //Condition es un arreglo de condiciones
-  let filter = {};
-  for( const champion in data){
-    //Recorrer el objeto
-    condition.forEach( c => {
-      //Recorrer el arreglo
-      console.log(c.key);
-    });
-    console.log(`${champion}`);
-  }
-};
-
-export const searchChamp = (champName,dataSet) => {
-    //Recibir el nombre del campeon que estoy buscando
-    for (const champion in dataSet) {
-      //Encontrarlo en la data
-      if(champion == champName){
-        //Devolveria el campeon
-        return dataSet[champion];
-      } 
-    }
+export function sortDataZA(characters) {
+  let orderZA = characters.sort((character1, character2) => {
+      return (character1.name > character2.name) ? -1 : 1
+  })
+  return orderZA
 }

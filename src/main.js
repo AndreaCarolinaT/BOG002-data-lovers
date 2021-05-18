@@ -1,174 +1,133 @@
-import { example, filterData, searchChamp } from "./data.js";
-import data from "./data/lol/lol.js";
+import data from "./data/rickandmorty/rickandmorty.js"
+import { filterCharacter, sortDataAZ, sortDataZA } from "./data.js"
 
-let view = "cuad";
+/*Variable que contiene toda la data y la que contiene las tarjetas de los personajes*/
+const dataCharacter = data.results
+const container = document.querySelector('.characterContainer')
 
-//Vistas generales
+/*------ MOSTRAR DATA (HU1) ------*/
+/*Función que mostrará las tarjetas de los personajes y ventanas modales con los datos de cada uno*/
+function showCharacters(characters) {
+  const containCharacter = characters.map(character => {
+    return `
+    <div class="characterCard" id="${character.id}">
 
-function show(dataSet) {
-  let container = document.getElementById("main");
-  container.style.display = "flex";
-  container.innerHTML = "";
-
-  //Toma un set de datos y los muestra
-  for (const champion in dataSet) {
-    switch (view) {
-      case "cuad":
-        /* <img src="http://icon.png" id="champion" class="small-pic">*/
-
-        let image = document.createElement("img");
-        image.setAttribute("src", dataSet[champion].img);
-        image.setAttribute("class", "small-pic");
-        //El id es el nombre del campeón pasado totalmente a minusculas
-        image.setAttribute("id", champion.toLowerCase());
-        container.appendChild(image);
-        break;
-      case "card":
-        //En tarjetas
-        /* <div class="card">
-                <img src="http://splash.jpg" alt="" class="card-pic">
-                <div class="info">
-                    <p>Nombre</p>
-                    <p>Dificultad</p>
-                    <p>Tags</p>
-                </div>
-            </div> */
-
-        let div = document.createElement("div");
-        div.setAttribute("id", champion.toLowerCase());
-        div.setAttribute("class", "card");
-        let img = document.createElement("img");
-        img.setAttribute("src", dataSet[champion].splash);
-        let info = document.createElement("div");
-        let name = document.createElement("p");
-        name.innerHTML = champion;
-        let level = document.createElement("p");
-        level.innerHTML = `Dificultad: ${dataSet[champion].info.difficulty}`;
-        let roles = document.createElement("p");
-        roles.innerHTML = `${dataSet[champion].tags[0]}`;
-
-        info.appendChild(name);
-        info.appendChild(level);
-        info.appendChild(roles);
-        div.appendChild(img);
-        div.appendChild(info);
-        container.appendChild(div);
-        break;
-      default:
-        break;
-    }
-
-    //Ahora a cada elemento creado (sea imagen o tarjeta) le ponemos un listener para el click
-    //Se crea una función para poder pasarle parametros a otra ya creada, este caso details
-    document.getElementById(champion.toLowerCase()).addEventListener("click", function () {details(champion)});
-  }
-}
-
-function setView(value) {
-  view = value;
-  show(data.data);
-  console.log('view')
-}
-
-function showCuadOn() {
-  setView("cuad");
-}
-function showCardsOn() {
-  setView("card");
-}
-
-document.getElementById("cuadView").addEventListener("click", showCuadOn);
-document.getElementById("cardView").addEventListener("click", showCardsOn);
-
-// Vistas detalladas
-
-function details(championName) {
-  //Recibir el campeon
-  let champion = searchChamp(championName, data.data);
-  //Tomar su información para llenar la pagina de detalles
-  
-  //PARTE 1 y 2 Info básica + Bio
-  
-  document.getElementById("main").innerHTML = `
-      <h2 id="name">${champion.id}</h2>
-      <div class="info"> 
-        <img id="icon" src="${champion.img}">
-        <p id="desc">${champion.title}</p>
+      <div class="characterImage">
+        <img src=${character.image}></img>
       </div>
-      <div>
-        <div>
-          <p>Dificultad: ${champion.info.difficulty}</p>
-          <p>Roles: ${champion.tags[0]}</p>
-          <p>Tipo: ${champion.partype}</p>
-        </div>
-        <div>
-          <p>Ataque: ${champion.info.attack}</p>
-          <p>Defensa: ${champion.info.defense}</p>
-          <p>Magia: ${champion.info.magic}</p>
-        </div>
+      <div class="characterInfo">
+        <h2>${character.name}</h2>
       </div>
-      <img src="${champion.splash}">
-
-    <p class="">${champion.blurb}</p>`
-  
-  //PARTE 3 STATS
-  
-  let stats = document.createElement('div');
-  
-  for(const keys in champion.stats){
-    let p = document.createElement('p');
-    p.appendChild(document.createTextNode(`${keys}: ${champion.stats[keys]}`));
-    stats.appendChild(p);
-  }
-  
-  document.getElementById("main").appendChild(stats);
-  
-  /*
-  <h2 id="name">Nombre</h2>
-      <div class="info"> 
-        <img id="icon" src="https://www.masterypoints.com/assets/img/lol/champion_icons/Aatrox.png" alt="">
-        <p id="desc">the Darkin Blade</p>
-      </div>
-      <div>
-        <div>
-          <p>Dificultad</p>
-          <p>Roles</p>
-          <p>Tipo</p>
-        </div>
-        <div>
-          <p>Ataque</p>
-          <p>Defensa</p>
-          <p>Magia</p>
-        </div>
-      </div>
-      <img src="http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg" alt="">
-
-    <p class="">descripción de campeón</p>
-    <div>
-      <h3>Stats</h3>
-      <p>hp</p>
-      <p>hpperlevel</p>
-      <p>mp</p>
-      <p>mpperlevel</p>
-      <p>movespeed</p>
-      <p>armor</p>
-      <p>armorperlevel</p>
-      <p>spellblock</p>
-      <p>spellblockperlevel</p>
-      <p>attackrange hpregen</p>
-      <p>hpregenperlevel</p>
-      <p>mpregen</p>
-      <p>mpregenperlevel</p>
-      <p>crit</p>
-      <p>critperlevel</p>
-      <p>attackdamage</p>
-      <p>attackdamageperlevel</p>
-      <p>attackspeedoffset</p>
-      <p>attackspeedperlevel</p>
     </div>
-  */
+  `
+  })
+
+  container.innerHTML = containCharacter;
+
+  const targets = document.querySelectorAll(".characterCard");
+
+  targets.forEach(characterCard => {
+    characterCard.addEventListener("click", function () {
+      let modalW = document.getElementById("modalW");
+      let overlay = document.getElementById("overlay");
+
+      for (let i = 0; i < characters.length; i++) {
+
+        if (characters[i].id == characterCard.id) {
+          document.getElementById("modalW").innerHTML =
+            `<div>
+              <div class="close" id="close"> 
+               <img src="img/cerrar.png"></img>
+              </div>   
+              <div class="contModal">
+               <div class="imgMoreInfo">
+                <img src=${characters[i].image}></img>
+               </div> 
+                <div class="moreInfo">
+                 <h2> ${characters[i].name} </h2>
+                 <p> Status: ${characters[i].status} </p>
+                 <p> Specie: ${characters[i].species} </p>
+                 <p> Type: ${characters[i].type} </p>
+                 <p> Gender: ${characters[i].gender} </p>
+                 <p> Origin: ${characters[i].origin.name} </p>
+                 <p> Location: ${characters[i].location.name} </p>
+                </div>
+               </div>
+             </div>`
+
+          overlay.style.display = "block";
+          modalW.style.display = "block";
+
+          let closeBtn = document.getElementsByClassName("close");
+          for (let i = 0; i < closeBtn.length; i++) {
+            closeBtn[i].addEventListener('click', () => {
+              overlay.style.display = "none";
+              modalW.style.display = "none";
+            });
+          }
+        }
+      }
+    })
+  })
 }
 
-//Run
-    
-show(data.data);
+showCharacters(dataCharacter)
+
+
+/* ------ FILTRAR DATA (HU2) ------*/
+/*Función que llama al select de especies y muestra el filtrado*/
+function filt() {
+  let optSpecies = document.getElementById("selectSpe");
+  optSpecies.addEventListener("change", () => {
+
+    let filtSpecie = filterCharacter(optSpecies.value, dataCharacter);
+    showCharacters(filtSpecie)
+
+    if (optSpecies.value == "all") {
+      showCharacters(dataCharacter)
+    }
+  })
+}
+filt(filterCharacter)
+
+
+/*------ ORDENAR DATA A-Z y Z-A (HU3) ------*/
+/* Función que permite ordenar alfabéticamente de forma ascendente y descendente */
+function orderData(e) {
+  let option = e.target.value;
+  if (option == "AZ") {
+    showCharacters(sortDataAZ(dataCharacter))
+  }
+  if (option == "ZA") {
+    showCharacters(sortDataZA(dataCharacter))
+  }
+  if (option == "all") {
+    showCharacters(sortDataAZ(dataCharacter))
+  }
+}
+
+/* Se agrega el evento change al select de ordenar */
+let optOrder = document.getElementById("orderSelect");
+optOrder.addEventListener("change", orderData);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

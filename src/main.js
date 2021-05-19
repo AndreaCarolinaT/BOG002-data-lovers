@@ -24,6 +24,7 @@ function showCharacters(characters) {
 
   container.innerHTML = containCharacter;
 
+/* Crear ventanas modales de cada personaje */
   const targets = document.querySelectorAll(".characterCard");
 
   targets.forEach(characterCard => {
@@ -77,6 +78,7 @@ showCharacters(dataCharacter)
 /* ------ FILTRAR DATA (HU2) ------*/
 /*Función que llama al select de especies y muestra el filtrado*/
 function filt() {
+  /* Se agrega el evento change al select de especies */
   let optSpecies = document.getElementById("selectSpe");
   optSpecies.addEventListener("change", () => {
 

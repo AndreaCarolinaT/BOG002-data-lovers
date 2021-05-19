@@ -1,5 +1,5 @@
-export function filterCharacter(specie, dataCharacter) {
-  let filterSpecie = dataCharacter.filter((item) => item.species === specie);
+export function filterCharacter(specie, character) {
+  let filterSpecie = character.filter((item) => item.species === specie);
   return filterSpecie
 }
 

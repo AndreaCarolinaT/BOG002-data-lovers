@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <title>Rick & Morty Info</title>
+</head>
+
+<body>
+
+    <div class="overlay" id="overlay">
+    </div>
+
+
+    <a href="index.html">
+        <img src="img/volver.png" class="returnIcon">
+    </a>
+
+
+    <h1>Personajes</h1>
+
+    <div class="selects">
+        <select name="Especie" class="selectSpe" id="selectSpe">
+            <option value="all">Especies</option>
+            <option value="Human">Human</option>
+            <option value="Alien">Alien</option>
+            <option value="Humanoid">Humanoid</option>
+            <option value="Poopybutthole">Poopybutthole</option>
+            <option value="Mytholog">Mytholog</option>
+            <option value="Animal">Animal</option>
+            <option value="Vampire">Vampire</option>
+            <option value="Robot">Robot</option>
+            <option value="Cronenberg">Cronenberg</option>
+            <option value="Disease">Disease</option>
+            <option value="Parasite">Parasite</option>
+            <option value="unknown">unknown</option>
+        </select>
+
+        <select name="Ordenar" id="orderSelect" class="orderSelect">
+            <option value="all">Organizar</option>
+            <option value="AZ">A-Z</option>
+            <option value="ZA">Z-A</option>
+        </select>
+    </div>
+
+
+    <div class="modalWindow" id="modalW">
+    </div>
+
+    <section class="characterContainer">
+    </section>
+
+    <script src="main.js" type="module"></script>
+
+</body>
+
+</html>
